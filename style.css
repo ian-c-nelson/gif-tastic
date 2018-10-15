@@ -1,0 +1,7 @@
+.outline {
+    border: black solid 1px;
+}
+
+.flex-block {
+    display: flex;
+}
