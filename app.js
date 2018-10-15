@@ -3,10 +3,8 @@ var gifTastic = (function () {
 
     // Logic controller
     var controller = {
-        // Initilize the app here
+        // Initialize the app here
         init: function () {
-            console.log("Initializing.");
-
             // Add listener for add category button
             $("#add-topic-button").on("click", controller.onAddCategoryButtonClick);
 
@@ -52,34 +50,30 @@ var gifTastic = (function () {
             var topic = $self.val();
             var mode = controller.getMode();
 
-            // Construct the query url.
             var queryURL;
             if (mode === "search") {
                 // For search mode keep track of offse so subsequent clicks don't get the same 10 every time.
                 var offset = parseInt($self.data("searchOffset"));
-                // var offsetParameter = "";
                 var offsetParameter = "&limit=10&offset=" + offset;
 
+                // Construct the query url.
                 queryURL = data.apiSearchUrl + topic + offsetParameter;
-                console.log("Search Mode is engaged.");
-                console.log("Search offset: " + offset);
 
                 // update the offset on the button
                 offset++;
                 $self.data("searchOffset", offset);
             } else {
+                // Construct the query url.
                 queryURL = data.apiRandomUrl + topic;
-                console.log("Random Mode is engaged.");
             }
-
-            console.log(queryURL);
 
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                console.log(response);
-
+                // If the data object has a property of title it came from the "random" query and should be passed as
+                // a single object. Otherwise it is from the "search" query and should be looped through to pass 
+                // individual elements.
                 if (response.data.hasOwnProperty("title")) {
                     uiController.addGif(response.data);
                 } else {
@@ -91,13 +85,9 @@ var gifTastic = (function () {
         },
 
         onGifImageClick: function () {
-            console.log("Image Clicked");
-
             // Get the data state for this image
             var $self = $(this);
             var data = $self.data();
-
-            console.log(data);
 
             // If state is equal to 'still', then update the src attribute of this
             // image to it's data-animated value and update the data-state attribute to 'animated'
@@ -133,8 +123,6 @@ var gifTastic = (function () {
 
         // add the image to the page
         addGif: function (gifData) {
-            console.log(gifData);
-
             // create a column for the card
             var column = $("<div>")
                 .addClass("col-6 col-lg-3")
