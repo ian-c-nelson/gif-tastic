@@ -112,7 +112,7 @@ var gifTastic = (function () {
         addGifButton: function (value) {
             $("<button>").attr({
                 "type": "button",
-                "class": "btn btn-info mx-1",
+                "class": "btn btn-info mx-1 mb-1",
                 "data-search-offset": "0",
                 "value": value
             })
